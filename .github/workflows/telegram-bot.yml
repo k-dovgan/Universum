@@ -4,11 +4,11 @@ on: [pull_request, issue_comment]
 jobs:
   comment:
     name: Make comment to a chat
+    if: github.event_name == "pull_request"
     runs-on: ubuntu-latest
 
     steps:
     - name: Comment new PR
-      if: github.event_name == "pull_request"
       run: echo A PR $NUMBER
       env:
         NUMBER: ${{ github.event.issue.number }}
