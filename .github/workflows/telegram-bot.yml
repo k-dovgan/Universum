@@ -8,8 +8,7 @@ jobs:
 
     steps:
     - name: Comment new PR
-      if: |
-        github.event_name == "pull_request" &&
+      if: github.event_name == "pull_request" &&
         contains(fromJSON('["opened", "reopened"]'), github.event.pull_request.type)
       run: echo A PR $NUMBER
       env:
