@@ -1,0 +1,13 @@
+name: Telegram bot
+on: [pull_request, issue_comment]
+
+jobs:
+  comment:
+    name: Make comment to a chat
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Comment new PR
+      run: echo $PAYLOAD
+      env:
+        PAYLOAD: ${{ github }}
