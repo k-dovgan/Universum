@@ -4,7 +4,7 @@ on: [pull_request, issue_comment]
 jobs:
   comment:
     name: Make comment to a chat
-    if: github.event_name == "pull_request"
+    if: github.event_name == pull_request
     runs-on: ubuntu-latest
 
     steps:
