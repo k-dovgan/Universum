@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Comment new PR
       if: github.event.pull_request
-      run: echo A PR $NUMBER
+      run: echo A PR is $NUMBER
       env:
         NUMBER: ${{ github.event.issue.number }}
 
