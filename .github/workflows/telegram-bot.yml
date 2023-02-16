@@ -8,15 +8,15 @@ jobs:
 
     steps:
     - name: Comment new PR
-      if:  github.event.pull_request && (${{ github.event.action }} == "open")
-      run: echo This is a new PR $NUMBER
+      if:  github.event.pull_request
+      run: |
+        echo $ACTION
+        if ($ACTION == "open")
+          echo This is new PR $NUMBER
+        elif ($ACTION == "synchronize")
+          echo This is update for PR $NUMBER
       env:
-        NUMBER: ${{ github.event.issue.number }}
-        
-    - name: Comment PR update
-      if: (${{ github.event.action }} == "synchronize") && github.event.pull_request
-      run: echo This is update for PR $NUMBER
-      env:
+        ACTION: ${{ github.event.action }}
         NUMBER: ${{ github.event.pull_request.number }}
 
     - name: Comment new comment
