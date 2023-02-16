@@ -15,6 +15,7 @@ jobs:
           echo This is new PR $NUMBER
         elif ($ACTION == "synchronize")
           echo This is update for PR $NUMBER
+        fi
       env:
         ACTION: ${{ github.event.action }}
         NUMBER: ${{ github.event.pull_request.number }}
