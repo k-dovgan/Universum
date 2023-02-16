@@ -14,7 +14,7 @@ jobs:
         ACTION: ${{ github.event.action }}
 
     - name: Comment new PR
-      if: ${{ github.event.action }} == "open"
+      if: ${{ github.event.action }} is "open"
       run: echo New PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
