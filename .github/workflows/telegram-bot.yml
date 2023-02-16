@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Payload
-      uses: Dovyski/payload-info-action@master
-    
     - name: Comment new PR
       if: github.event.pull_request
       run: echo A PR is $NUMBER
@@ -27,3 +24,6 @@ jobs:
       run: echo A comment on PR $NUMBER
       env:
         NUMBER: ${{ github.event.issue.number }}
+
+    - name: Payload
+      uses: Dovyski/payload-info-action@master
