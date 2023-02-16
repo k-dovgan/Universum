@@ -17,7 +17,7 @@ jobs:
         NUMBER: ${{ github.event.issue.number }}
         
     - name: Comment PR update
-      if: github.event.pull_request && github.event.action == "synchronize"
+      if: github.event.pull_request && github.event.action.synchronize
       run: echo This is PR update $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
