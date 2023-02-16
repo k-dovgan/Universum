@@ -7,18 +7,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Comment new PR
+    - name: Test PR
       if:  github.event.pull_request
-      run: |
-        echo $ACTION
-        if ($ACTION == "open")
-          echo This is new PR $NUMBER
-        elif ($ACTION == "synchronize")
-          echo This is update for PR $NUMBER
-        fi
+      run: echo $ACTION
       env:
         ACTION: ${{ github.event.action }}
+
+    - name: Comment new PR
+      if: ${{ github.event.action }} == "open"
+      run: echo New PR $NUMBER
+      env:
         NUMBER: ${{ github.event.pull_request.number }}
+
+    - name: Comment update PR
+      if: ${{ github.event.action }} == "syncronize"
+      run: echo Update PR $NUMBER
+      env:
+        NUMBER: ${{ github.event.pull_request.number }}
+    
 
     - name: Comment new comment
       if: github.event.issue_comment && github.event.issue.pull_request
