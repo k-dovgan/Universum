@@ -3,29 +3,38 @@ on: [pull_request, issue_comment]
 
 jobs:
   comment-pr:
-    name: Make comment to a chat
+    name: Make comment to a chat about PR
     if: github.event.pull_request
     runs-on: ubuntu-latest
 
     steps:
     - name: Comment new PR
-      if: github.event.pull_request == 'open'
+      if: github.event.pull_request.type == 'open'
       run: echo New PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
 
     - name: Comment update PR
-      if:  github.event.pull_request == 'syncronize'
+      if:  github.event.pull_request.type == 'syncronize'
       run: echo Update PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
-    
+        
+  comment-comment:
+    name: Make comment to a chat about comment
+    if: github.event.issue_comment
+    runs-on: ubuntu-latest
 
+    steps:
     - name: Comment new comment
-      if: github.event.issue_comment && github.event.issue.pull_request
+      if: github.event.issue.pull_request
       run: echo A comment on PR $NUMBER
       env:
         NUMBER: ${{ github.event.issue.number }}
 
+  info:
+    name: print payload
+    runs-on: ubuntu-latest
+    steps:
     - name: Payload
       uses: Dovyski/payload-info-action@master
