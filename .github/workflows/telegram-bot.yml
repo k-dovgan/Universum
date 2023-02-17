@@ -9,10 +9,11 @@ jobs:
 
     steps:
     - name: Comment new PR
-      if: github.event.pull_request.type == 'open'
-      run: echo New PR $NUMBER
+      if: github.event.action
+      run: echo New PR $NUMBER for action $ACTION
       env:
         NUMBER: ${{ github.event.pull_request.number }}
+        ACTION: ${{ github.event.action }}
 
     - name: Comment update PR
       if:  github.event.action == 'syncronize'
