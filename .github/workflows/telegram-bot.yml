@@ -3,7 +3,7 @@ on: [pull_request, issue_comment]
 
 jobs:
   report-pr:
-    name: Make comment to a chat about PR
+    name: Notify about PR
     if: github.event.pull_request
     runs-on: ubuntu-latest
 
@@ -21,7 +21,7 @@ jobs:
         NUMBER: ${{ github.event.pull_request.number }}
         
   report-comment:
-    name: Make comment to a chat about comment
+    name: Notify about comment
     if: github.event.issue_comment
     runs-on: ubuntu-latest
 
