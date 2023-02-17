@@ -2,19 +2,39 @@ name: Telegram bot
 on: [pull_request, issue_comment]
 
 jobs:
-  comment-pr:
-    name: Make comment to a chat
+  report-pr:
+    name: Make comment to a chat about PR
+    if: github.event.pull_request
     runs-on: ubuntu-latest
 
     steps:
     - name: Comment new PR
-      if: github.event.pull_request
-      run: echo A PR $NUMBER
+      if: github.event.action == 'open'
+      run: echo New PR $NUMBER
       env:
-        NUMBER: ${{ github.event.issue.number }}
+        NUMBER: ${{ github.event.pull_request.number }}
 
+    - name: Comment update PR
+      if: github.event.action == 'synchronize'
+      run: echo Update PR $NUMBER
+      env:
+        NUMBER: ${{ github.event.pull_request.number }}
+        
+  report-comment:
+    name: Make comment to a chat about comment
+    if: github.event.issue_comment
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Comment new comment
-      if: github.event.issue_comment && github.event.issue.pull_request
+      if: github.event.issue.pull_request
       run: echo A comment on PR $NUMBER
       env:
         NUMBER: ${{ github.event.issue.number }}
+
+  info:
+    name: print payload
+    runs-on: ubuntu-latest
+    steps:
+    - name: Payload
+      uses: Dovyski/payload-info-action@master
