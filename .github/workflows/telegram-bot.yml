@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - name: Comment new comment
-      run: echo A comment on PR $NUMBER
+      run: echo A comment on issue $NUMBER
       env:
         NUMBER: ${{ github.event.issue.number }}
 
