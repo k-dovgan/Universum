@@ -35,4 +35,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Payload
-      uses: Dovyski/payload-info-action@master
+      uses: hmarr/debug-action@v2
