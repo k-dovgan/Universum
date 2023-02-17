@@ -4,17 +4,18 @@ on: [pull_request, issue_comment]
 jobs:
   comment-pr:
     name: Make comment to a chat
+    if: github.event.pull_request
     runs-on: ubuntu-latest
 
     steps:
     - name: Comment new PR
-      if: github.event.pull_request && ( github.event.action == 'open' )
+      if: github.event.pull_request == 'open'
       run: echo New PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
 
     - name: Comment update PR
-      if:  github.event.pull_request && ( github.event.action == 'syncronize' )
+      if:  github.event.pull_request == 'syncronize'
       run: echo Update PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
