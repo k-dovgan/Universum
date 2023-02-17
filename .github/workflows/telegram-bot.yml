@@ -2,26 +2,25 @@ name: Telegram bot
 on: [pull_request, issue_comment]
 
 jobs:
-  comment-pr:
+  report-pr:
     name: Make comment to a chat about PR
     if: github.event.pull_request
     runs-on: ubuntu-latest
 
     steps:
     - name: Comment new PR
-      if: github.event.action
-      run: echo New PR $NUMBER for action $ACTION
+      if: github.event.action == 'open'
+      run: echo New PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
-        ACTION: ${{ github.event.action }}
 
     - name: Comment update PR
-      if:  github.event.action == 'synchronize'
+      if: github.event.action == 'synchronize'
       run: echo Update PR $NUMBER
       env:
         NUMBER: ${{ github.event.pull_request.number }}
         
-  comment-comment:
+  report-comment:
     name: Make comment to a chat about comment
     if: github.event.issue_comment
     runs-on: ubuntu-latest
