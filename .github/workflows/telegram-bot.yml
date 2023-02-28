@@ -9,18 +9,20 @@ jobs:
     steps:
     - name: Comment new PR
       if: github.event.pull_request && github.event.action == 'opened'
-      run: echo "$AUTHOR created new PR '$NAME' to branch '$BASE'; see here:\n$URL"
+      run: curl "https://api.telegram.org/bot${{TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=-${{TELEGRAM_CHAT_ID}}&text=${{TEXT}}"
       env:
         AUTHOR: ${{ github.event.pull_request.user.login }}
         NAME: ${{ github.event.pull_request.title }}
         BASE: ${{ github.event.pull_request.base.ref }}
         URL: ${{ github.event.pull_request.html_url }}
+        TEXT: "$AUTHOR created new PR '$NAME' to branch '$BASE'; see here:\n$URL"
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: echo Update PR $NUMBER
+      run: curl "https://api.telegram.org/bot${{TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=-${{TELEGRAM_CHAT_ID}}&text=${{TEXT}}"
       env:
         NUMBER: ${{ github.event.pull_request.number }}
+        TEXT: "Update PR $NUMBER"
         
   report-comment:
     name: Notify about comment
