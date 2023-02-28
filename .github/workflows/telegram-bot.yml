@@ -22,7 +22,7 @@ jobs:
       run: curl $LINK
       env:
         NUMBER: ${{ github.event.pull_request.number }}
-        LINK: "https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text=$TEXT"
+        LINK: "https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text=${{ TEXT }}"
         TEXT: "Update the PR $NUMBER"
         
   report-comment:
