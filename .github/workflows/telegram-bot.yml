@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Comment new PR
       if: github.event.pull_request && github.event.action == 'opened'
-      run: curl "https://api.telegram.org/bot${{TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=-${{TELEGRAM_CHAT_ID}}&text=${{TEXT}}"
+      run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=-${{ secrets.TELEGRAM_CHAT_ID }}&text=${{ TEXT }}"
       env:
         AUTHOR: ${{ github.event.pull_request.user.login }}
         NAME: ${{ github.event.pull_request.title }}
@@ -19,7 +19,7 @@ jobs:
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: curl "https://api.telegram.org/bot${{TELEGRAM_BOT_TOKEN}}/sendMessage?chat_id=-${{TELEGRAM_CHAT_ID}}&text=${{TEXT}}"
+      run: curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=-${{ secrets.TELEGRAM_CHAT_ID }}&text=${{ TEXT }}"
       env:
         NUMBER: ${{ github.event.pull_request.number }}
         TEXT: "Update PR $NUMBER"
