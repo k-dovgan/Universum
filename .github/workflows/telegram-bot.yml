@@ -26,11 +26,11 @@ jobs:
 
     steps:
     - name: Comment new comment
-      run: echo $AUTHOR posted the following comment on issue $ISSUE:\n$BODY
+      run: echo "$AUTHOR posted the following comment ($URL):\n$BODY"
       env:
-        AUTHOR: ${{ github.event.user.login }}
-        ISSUE: ${{ github.event.issue.html_url }}
-        BODY: ${{ github.event.issue.body }}
+        AUTHOR: ${{ github.event.comment.user.login }}
+        URL: ${{ github.event.comment.html_url }}
+        BODY: ${{ github.event.comment.body }}
 
   info:
     name: print payload
