@@ -17,7 +17,7 @@ jobs:
       if: github.event.pull_request && github.event.action == 'opened'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: "$AUTHOR created new PR '$NAME' to branch '$BASE'; see here:\n$URL"
+        TEXT: $AUTHOR created new PR '$NAME' to branch '$BASE'; see here:\n$URL
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
@@ -37,7 +37,7 @@ jobs:
       if: env.TEXT
       run: curl $LINK
       env:
-        LINK: https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text=${{ env.TEXT }}
+        LINK: https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${{ env.TEXT }}
         
   info:
     name: print payload
