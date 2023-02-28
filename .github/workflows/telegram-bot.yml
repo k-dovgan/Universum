@@ -21,9 +21,9 @@ jobs:
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: echo TEXT=`str_replace(' ','%20',$TEXT)` >> $GITHUB_ENV
+      run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: "Update the PR $NUMBER"
+        TEXT: Update%20the%20PR%20$NUMBER
         
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
