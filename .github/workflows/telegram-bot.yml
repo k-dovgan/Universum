@@ -14,25 +14,26 @@ jobs:
       COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_BODY: ${{ github.event.comment.body }}
+      COMMENT_NUMBER: ${{ github.event.issue.number }}
 
     steps:
     - name: Comment new PR
       if: github.event.pull_request && github.event.action == 'opened'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: $AUTHOR created new PR '$NAME' to branch '$BASE'; see here:\n$URL
+        TEXT: ${{ env.PR_AUTHOR }}%20created%20new%20PR%20'${{ env.PR_NAME }}'%20to%20branch%20'${{ PR_BASE }}';%0Asee%20here:%20${{ PR_URL }}
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: ${{ env.PR_AUTHOR }}%20updated%20PR%20'${{ env.PR_NUMBER }}';%20see%20here:%0A${{ env.PR_URL }}
+        TEXT: ${{ env.PR_AUTHOR }}%20updated%20PR#${{ env.PR_NUMBER }};%0Asee%20here:%20${{ env.PR_URL }}
         
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: $AUTHOR posted the following comment ($URL):\n$BODY
+        TEXT: ${{ env.COMMENT_AUTHOR }}%20posted%20the%20following%20comment%20to%20issue%20#${{ env.COMMENT_NUMBER }}:%0A$BODY%0ASee%20here:%20${{ env.COMMENT_URL }}
 
     - name: Send comment to TG
       if: env.TEXT
