@@ -3,7 +3,7 @@ on: [pull_request, issue_comment]
 
 jobs:
   comment:
-    name: Notify
+    name: Notify about PR
     runs-on: ubuntu-latest
 
     steps:
