@@ -22,8 +22,8 @@ jobs:
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.PR_AUTHOR }} created new PR '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}';
-          see here: ${{ env.PR_URL }}
+          ${{ env.PR_AUTHOR }} created new PR '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
+          See here: ${{ env.PR_URL }}
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
