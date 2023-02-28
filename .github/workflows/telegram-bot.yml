@@ -27,13 +27,13 @@ jobs:
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: ${{ env.PR_AUTHOR }}%20updated%20PR#${{ env.PR_NUMBER }};%0Asee%20here:%20${{ env.PR_URL }}
+        TEXT: ${{ env.PR_AUTHOR }}%20updated%20PR%23${{ env.PR_NUMBER }};%0Asee%20here:%20${{ env.PR_URL }}
         
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: ${{ env.COMMENT_AUTHOR }}%20posted%20the%20following%20comment%20to%20issue%20#${{ env.COMMENT_NUMBER }}:%0A${{ env.COMMENT_BODY }}%0ASee%20here:%20${{ env.COMMENT_URL }}
+        TEXT: ${{ env.COMMENT_AUTHOR }}%20posted%20the%20following%20comment%20to%20issue%20%23${{ env.COMMENT_NUMBER }}:%0A${{ env.COMMENT_BODY }}%0ASee%20here:%20${{ env.COMMENT_URL }}
 
     - name: Send comment to TG
       if: env.TEXT
