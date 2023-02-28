@@ -23,7 +23,7 @@ jobs:
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: Update%20the%20PR%20$NUMBER
+        TEXT: Update%20the%20PR%20${{ env.NUMBER }}
         
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
@@ -34,6 +34,7 @@ jobs:
         BODY: ${{ github.event.comment.body }}
 
     - name: Send comment to TG
+      if: env.TEXT
       run: curl $LINK
       env:
         LINK: https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text=${{ env.TEXT }}
