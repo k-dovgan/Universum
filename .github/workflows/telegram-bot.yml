@@ -21,14 +21,16 @@ jobs:
         
   report-comment:
     name: Notify about comment
-    if: github.event.comment
+    if: github.event.comment && github.event.action == 'created'
     runs-on: ubuntu-latest
 
     steps:
     - name: Comment new comment
-      run: echo A comment on PR $NUMBER
+      run: echo $AUTHOR posted the following comment on issue $ISSUE:\n$BODY
       env:
-        NUMBER: ${{ github.event.issue.number }}
+        AUTHOR: ${{ github.event.user.login }}
+        ISSUE: ${{ github.event.issue.html_url }}
+        BODY: ${{ github.event.issue.body }}
 
   info:
     name: print payload
