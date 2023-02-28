@@ -36,7 +36,7 @@ jobs:
     - name: Send comment to TG
       run: curl $LINK
       env:
-        LINK: https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text="${{ env.TEXT }}"
+        LINK: https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text='${{ env.TEXT }}'
         
   info:
     name: print payload
