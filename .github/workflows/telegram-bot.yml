@@ -27,7 +27,9 @@ jobs:
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: ${{ env.PR_AUTHOR }} updated%20PR%23${{ env.PR_NUMBER }};%0Asee%20here:%20${{ env.PR_URL }}
+        TEXT: |
+          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
+          see here: ${{ env.PR_URL }}
         
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
