@@ -37,7 +37,7 @@ jobs:
 
     - name: Send comment to TG
       if: env.TEXT
-      uses: jtalk/url-health-check-action@v3
+      uses: fjogeleit/http-request-action@v1
       with:
         url: https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${{ env.TEXT }}
         
