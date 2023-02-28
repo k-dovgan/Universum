@@ -19,7 +19,7 @@ jobs:
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: curl -v "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=-${{ secrets.TELEGRAM_CHAT_ID }}&text=$TEXT"
+      run: echo "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=-${{ secrets.TELEGRAM_CHAT_ID }}&text=$TEXT"
       env:
         NUMBER: ${{ github.event.pull_request.number }}
         TEXT: "Update PR $NUMBER"
