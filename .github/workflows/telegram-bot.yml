@@ -30,8 +30,9 @@ jobs:
         
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
-      run: echo "$AUTHOR posted the following comment ($URL):\n$BODY"
+      run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
+        TEXT: $AUTHOR posted the following comment ($URL):\n$BODY
 
     - name: Send comment to TG
       if: env.TEXT
