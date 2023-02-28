@@ -34,7 +34,7 @@ jobs:
         BODY: ${{ github.event.comment.body }}
 
     - name: Send comment to TG
-      run: curl $LINK
+      run: echo $LINK
       env:
         LINK: "https://api.telegram.org/bot2006604930:AAG5XkarlytozMG6YGnVkDkB2tNTm5H2BuM/sendMessage?chat_id=-1001783686076&text=${{ env.TEXT }}"
         
