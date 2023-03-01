@@ -38,7 +38,7 @@ jobs:
           see here: ${{ env.PR_URL }}
 
     - name: Comment merge PR
-      if: github.event.pull_request && github.event.action == 'closed'
+      if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
