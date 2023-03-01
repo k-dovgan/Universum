@@ -35,7 +35,7 @@ jobs:
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.PR_AUTHOR }} updated PR%23${{ env.PR_NUMBER }};
+          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
           see here: ${{ env.PR_URL }}
 
     - name: Comment merge PR
