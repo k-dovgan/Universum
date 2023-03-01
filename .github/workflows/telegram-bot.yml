@@ -25,7 +25,7 @@ jobs:
       COMMENT_NUMBER: ${{ github.event.issue.number }}
 
     steps:
-    - name: Comment new PR
+    - name: New PR
       if: github.event.pull_request && github.event.action == 'opened'
       run: |
         EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
@@ -36,7 +36,7 @@ jobs:
           ${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
           See here: ${{ env.PR_URL }}
 
-    - name: Comment update PR
+    - name: PR updated
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: |
         EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
@@ -47,7 +47,7 @@ jobs:
           ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
           see here: ${{ env.PR_URL }}
 
-    - name: Comment merge PR
+    - name: PR merged
       if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
       run: |
         EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
@@ -57,7 +57,7 @@ jobs:
         TEXT: |
           ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch ${{ env.PR_BASE }}
 
-    - name: Comment new comment
+    - name: New comment
       if: github.event.comment
       run: |
         EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
@@ -69,7 +69,13 @@ jobs:
           ${{ env.COMMENT_BODY }}
           See issue here: ${{ env.COMMENT_URL }}
 
+    - name: Universum succeeded
+      if: github.event.workflow_run && github.event.workflow_run.conclusion == 'success'
+      run: echo "Universum succeeded"
 
+    - name: Universum failed
+      if: github.event.workflow_run && github.event.workflow_run.conclusion == 'failure'
+      run: echo "Universum failed"
 
     - name: Send comment to TG
       if: env.TEXT
