@@ -35,8 +35,10 @@ jobs:
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: |
-        echo TEXT<<EOF >> $GITHUB_ENV
-        echo $TEXT EOF >> $GITHUB_ENV
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT" >> $GITHUB_ENV
+        echo "$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
           ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
