@@ -4,6 +4,8 @@ on:
     types: [opened, synchronize, closed]
   issue_comment:
     types: created
+  check_run:
+    types: completed
     
 jobs:
   make-comment:
@@ -15,6 +17,7 @@ jobs:
       PR_BASE: ${{ github.event.pull_request.base.ref }}
       PR_URL: ${{ github.event.pull_request.html_url }}
       PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_MERGED: ${{ github.event.pull_request.merged_by.login }}
       COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_BODY: ${{ github.event.comment.body }}
@@ -23,34 +26,49 @@ jobs:
     steps:
     - name: Comment new PR
       if: github.event.pull_request && github.event.action == 'opened'
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.PR_AUTHOR }} created new PR '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
+          ${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
           See here: ${{ env.PR_URL }}
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.PR_AUTHOR }} updated PR ${{ env.PR_NUMBER }};
+          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
           see here: ${{ env.PR_URL }}
 
     - name: Comment merge PR
       if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
-          Pull request has been merged
+          ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch ${{ env.PR_BASE }}
 
     - name: Comment new comment
-      if: github.event.comment && github.event.action == 'created'
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      if: github.event.comment
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.COMMENT_AUTHOR }} posted the following comment to issue ${{ env.COMMENT_NUMBER }}:
+          ${{ env.COMMENT_AUTHOR }} posted the following comment to issue #${{ env.COMMENT_NUMBER }}:
           ${{ env.COMMENT_BODY }}
+          See issue here: ${{ env.COMMENT_URL }}
+
+
 
     - name: Send comment to TG
       if: env.TEXT
