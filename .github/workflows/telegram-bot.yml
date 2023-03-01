@@ -35,11 +35,10 @@ jobs:
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: echo TEXT=$TEXT1\n$TEXT2 >> $GITHUB_ENV
       env:
-        TEXT: |
-          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
-          ${{ env.NL }} see here: ${{ env.PR_URL }}
+        TEXT1: "${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};"
+        TEXT2: "${{ env.NL }} see here: ${{ env.PR_URL }}"
 
     - name: Comment merge PR
       if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
