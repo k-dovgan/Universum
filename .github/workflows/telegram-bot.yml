@@ -1,6 +1,10 @@
 name: Telegram bot
-on: [pull_request, issue_comment]
-
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+  issue_comment:
+    types: created
+    
 jobs:
   make-comment:
     name: Send comment to TG
