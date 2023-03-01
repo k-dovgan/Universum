@@ -34,7 +34,8 @@ jobs:
 
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
-      run: echo -e "TEXT=\"${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};\nsee here: ${{ env.PR_URL }}\"" >> $GITHUB_ENV
+      run: |
+        echo -e "TEXT=${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};\nsee here: ${{ env.PR_URL }}" >> $GITHUB_ENV
 
     - name: Comment merge PR
       if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
