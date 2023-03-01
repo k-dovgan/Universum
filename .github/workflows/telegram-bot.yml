@@ -4,6 +4,8 @@ on:
     types: [opened, synchronize, closed]
   issue_comment:
     types: created
+  check_run:
+    types: completed
     
 jobs:
   make-comment:
@@ -34,9 +36,10 @@ jobs:
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
-        TEXT: |
+        TEXT: |+
           ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
-          \n see here: ${{ env.PR_URL }}
+          
+          see here: ${{ env.PR_URL }}
 
     - name: Comment merge PR
       if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
@@ -46,7 +49,7 @@ jobs:
           ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch ${{ env.PR_BASE }}
 
     - name: Comment new comment
-      if: github.event.comment && github.event.action == 'created'
+      if: github.event.comment
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
