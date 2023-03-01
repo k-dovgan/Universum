@@ -15,6 +15,7 @@ jobs:
       PR_BASE: ${{ github.event.pull_request.base.ref }}
       PR_URL: ${{ github.event.pull_request.html_url }}
       PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_MERGED: ${{ github.event.pull_request.merged_by.login }}
       COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_BODY: ${{ github.event.comment.body }}
@@ -42,7 +43,7 @@ jobs:
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
-          Pull request has been merged
+          ${{ env.PR_MERGED }} merged PR ${{env.PR_NUMBER }} to branch ${{ env.PR_BASE }}
 
     - name: Comment new comment
       if: github.event.comment && github.event.action == 'created'
