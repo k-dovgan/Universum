@@ -3,9 +3,9 @@ on:
   pull_request:
     types: [opened, synchronize, closed]
   issue_comment:
-    types: created
-  check_run:
-    types: completed
+    types: [created]
+  check_suite:
+    types: [completed]
     
 jobs:
   make-comment:
