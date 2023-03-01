@@ -5,6 +5,7 @@ on:
   issue_comment:
     types: [created]
   workflow_run:
+    workflows: [Universum check]
     types: [completed]
     
 jobs:
