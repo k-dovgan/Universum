@@ -38,7 +38,7 @@ jobs:
           see here: ${{ env.PR_URL }}
 
     - name: Comment merge PR
-      if: github.event.pull_request && github.event.action == 'closed'
+      if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
@@ -49,14 +49,14 @@ jobs:
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.COMMENT_AUTHOR }} posted the following comment (${{ env.COMMENT_URL }}) to issue ${{ env.COMMENT_NUMBER }}:
+          ${{ env.COMMENT_AUTHOR }} posted the following comment to issue ${{ env.COMMENT_NUMBER }}:
           ${{ env.COMMENT_BODY }}
 
     - name: Send comment to TG
       if: env.TEXT
-      uses: fjogeleit/http-request-action@v1
-      with:
-        url: https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&text=${{ env.TEXT }}
+      run: curl --get --data-urlencode "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" --data-urlencode "text=${{ env.TEXT }}" $URL
+      env:
+        URL: https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage
 
   info:
     name: print payload
