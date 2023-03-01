@@ -23,6 +23,9 @@ jobs:
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_BODY: ${{ github.event.comment.body }}
       COMMENT_NUMBER: ${{ github.event.issue.number }}
+      UNIVERUM_COMMIT: ${{ github.event.workflow_run.head_sha }}
+      UNIVERSUM_BRANCH: ${{ github.event.workflow_run.head_branch }}
+      UNIVERSUM_LOG: ${{ github.event.workflow_run.html_url }}
 
     steps:
     - name: New PR
@@ -71,11 +74,25 @@ jobs:
 
     - name: Universum succeeded
       if: github.event.workflow_run && github.event.workflow_run.conclusion == 'success'
-      run: echo "Universum succeeded"
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
+      env:
+        TEXT: |
+          Universum run for commit ${{ env.UNIVERUM_COMMIT }} for branch '${{ env.UNIVERSUM_BRANCH }}' succeeded.
+          See log here: ${{ env.UNIVERSUM_LOG }}
 
     - name: Universum failed
       if: github.event.workflow_run && github.event.workflow_run.conclusion == 'failure'
-      run: echo "Universum failed"
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
+      env:
+        TEXT: |
+          Universum run for commit ${{ env.UNIVERUM_COMMIT }} for branch '${{ env.UNIVERSUM_BRANCH }}' failed.
+          See log here: ${{ env.UNIVERSUM_LOG }}
 
     - name: Send comment to TG
       if: env.TEXT
