@@ -49,7 +49,7 @@ jobs:
       run: echo TEXT=$TEXT >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.COMMENT_AUTHOR }} posted the following comment (${{ env.COMMENT_URL }}) to issue ${{ env.COMMENT_NUMBER }}:
+          ${{ env.COMMENT_AUTHOR }} posted the following comment to issue ${{ env.COMMENT_NUMBER }}:
           ${{ env.COMMENT_BODY }}
 
     - name: Send comment to TG
