@@ -22,11 +22,15 @@ jobs:
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_BODY: ${{ github.event.comment.body }}
       COMMENT_NUMBER: ${{ github.event.issue.number }}
+      EOF: $(dd if=/dev/urandom bs=15 count=1 status=none | base64)
 
     steps:
     - name: Comment new PR
       if: github.event.pull_request && github.event.action == 'opened'
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: |
+        
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
           ${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
@@ -35,10 +39,8 @@ jobs:
     - name: Comment update PR
       if: github.event.pull_request && github.event.action == 'synchronize'
       run: |
-        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-        echo "TEXT<<$EOF" >> $GITHUB_ENV
-        echo "$TEXT" >> $GITHUB_ENV
-        echo "$EOF" >> $GITHUB_ENV
+        echo "TEXT<<${{ env.EOF }}" >> $GITHUB_ENV
+        echo "$TEXT${{ env.EOF }}" >> $GITHUB_ENV
       env:
         TEXT: |
           ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
@@ -46,18 +48,25 @@ jobs:
 
     - name: Comment merge PR
       if: github.event.pull_request && github.event.action == 'closed' && github.event.pull_request.merged == true
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
           ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch ${{ env.PR_BASE }}
 
     - name: Comment new comment
       if: github.event.comment
-      run: echo TEXT=$TEXT >> $GITHUB_ENV
+      run: |
+        EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+        echo "TEXT<<$EOF" >> $GITHUB_ENV
+        echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
           ${{ env.COMMENT_AUTHOR }} posted the following comment to issue #${{ env.COMMENT_NUMBER }}:
           ${{ env.COMMENT_BODY }}
+          See issue here: ${{ env.COMMENT_URL }}
 
 
 
