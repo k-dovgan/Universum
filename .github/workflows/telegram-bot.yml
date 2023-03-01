@@ -70,7 +70,6 @@ jobs:
 
 
 
-
     - name: Send comment to TG
       if: env.TEXT
       run: curl --get --data-urlencode "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" --data-urlencode "text=${{ env.TEXT }}" $URL
