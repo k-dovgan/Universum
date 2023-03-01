@@ -58,7 +58,7 @@ jobs:
         echo "$TEXT$EOF" >> $GITHUB_ENV
       env:
         TEXT: |
-          ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch ${{ env.PR_BASE }}
+          ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch '${{ env.PR_BASE }}'
 
     - name: New comment
       if: github.event.comment
