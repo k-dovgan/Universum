@@ -43,9 +43,11 @@ jobs:
         elif [[ ! -z ${{ github.event.workflow_run }} && ${{ github.event.workflow_run.conclusion }} == "failure" ]]; then
           TEXT=$UNIVERSUM_FAILED
         fi
-        if [[ ! -z $TEXT ]]: then
+
+        if [[ ! -z $TEXT ]]; then
           curl --get --data-urlencode "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" --data-urlencode "text=$TEXT" $URL
         fi
+
       env:
         URL: https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage
         NEW_PR: |
