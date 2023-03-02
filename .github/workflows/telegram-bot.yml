@@ -28,13 +28,16 @@ jobs:
       UNIVERSUM_LOG: ${{ github.event.workflow_run.html_url }}
 
     steps:
-    - name: Test
+    - name: Create text
       run: |
         if [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "opened" ]]; then
-          echo Not bla-bla-bla
+          TEXT="${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.\n\
+          See here: ${{ env.PR_URL }}"
         elif [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "synchronize" ]]; then
-          echo Bla-bla-bla
+          TEXT="${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};\n\
+          see here: ${{ env.PR_URL }}"
         fi
+        echo $TEXT
     
     - name: New PR
       if: github.event.pull_request && github.event.action == 'opened'
