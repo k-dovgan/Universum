@@ -35,8 +35,8 @@ jobs:
         elif [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "synchronize" ]]; then
           TEXT=$PR_UPDATE
         fi
-        echo $TEXT
-        echo $NEW_PR
+        echo -e "$TEXT"
+        echo -e "$NEW_PR"
       env:
         NEW_PR: |
           ${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
