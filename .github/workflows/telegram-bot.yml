@@ -31,7 +31,9 @@ jobs:
     - name: Test
       run: |
         if (github.event.pull_request && github.event.action == 'synchronize')
+        then
           echo Bla-bla-bla
+        fi
     
     - name: New PR
       if: github.event.pull_request && github.event.action == 'opened'
