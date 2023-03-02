@@ -30,7 +30,7 @@ jobs:
     steps:
     - name: Test
       run: |
-        if (github.event.pull_request && github.event.action == 'synchronize')
+        if ( ${{ github.event.pull_request }} && ${{ github.event.action }} == 'synchronize')
         then
           echo Bla-bla-bla
         fi
