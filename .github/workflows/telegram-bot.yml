@@ -31,15 +31,18 @@ jobs:
     - name: Create text
       run: |
         if [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "opened" ]]; then
-          TEXT="${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
-          See here: ${{ env.PR_URL }}"
+          TEXT=$NEW_PR
         elif [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "synchronize" ]]; then
-          read -r -d '' TEXT <<- EOM
-          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
-          see here: ${{ env.PR_URL }}
-          EOM
+          TEXT=$PR_UPDATE
         fi
         echo $TEXT
+      env:
+        NEW_PR: |
+          ${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
+          See here: ${{ env.PR_URL }}
+        PR_UPDATE: |
+          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
+          see here: ${{ env.PR_URL }}
     
     - name: New PR
       if: github.event.pull_request && github.event.action == 'opened'
