@@ -30,8 +30,7 @@ jobs:
     steps:
     - name: Test
       run: |
-        if [ '${{ github.event.action }}' == 'synchronize']
-        then
+        if [[ ${{ github.event.action }} == "synchronize" ]]; then
           echo Bla-bla-bla
         fi
     
