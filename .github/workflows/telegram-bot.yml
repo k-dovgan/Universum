@@ -34,7 +34,7 @@ jobs:
           TEXT=$NEW_PR
         elif [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "synchronize" ]]; then
           TEXT=$PR_UPDATE
-        elif [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "closed" && ${{ github.event.pull_request.merged }} == true]]; then
+        elif [[ ! -z ${{ github.event.pull_request }} && ${{ github.event.action }} == "closed" && ${{ github.event.pull_request.merged }} == true ]]; then
           TEXT=$PR_MERGED
         elif [[ ! -z ${{ github.event.comment }} ]]; then
           TEXT=$NEW_COMMENT
