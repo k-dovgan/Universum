@@ -35,7 +35,7 @@ jobs:
           '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'"`
         elif [[ ! -z "${{ github.event.pull_request }}" && "${{ github.event.action }}" == "synchronize" ]]; then
           TEXT=`echo -e "<b>${{ env.PR_AUTHOR }}</b> updated <a href=\"${{ env.PR_URL }}\">PR#${{ env.PR_NUMBER }}</a> \
-          \nThis is test"`
+                         \nThis is test"`
         elif [[ ! -z "${{ github.event.pull_request }}" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
           TEXT="<b>${{ env.PR_MERGED }}</b> merged <a href=\"${{ env.PR_URL }}\">PR#${{ env.PR_NUMBER }}</a> to branch <b>'${{ env.PR_BASE }}'</b>"
         elif [[ ! -z "${{ github.event.comment }}" ]]; then
