@@ -56,6 +56,7 @@ jobs:
         PR_UPDATE: |
           ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
           see here: ${{ env.PR_URL }}
+          This is [b]markdown[/b] test
         PR_MERGED: |
           ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch '${{ env.PR_BASE }}'
         NEW_COMMENT: |
