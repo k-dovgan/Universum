@@ -52,12 +52,9 @@ jobs:
       env:
         URL: https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage
         NEW_PR: |
-          ${{ env.PR_AUTHOR }} created new PR#${{ env.PR_NUMBER }} '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'.
-          See here: ${{ env.PR_URL }}
+          <b>${{ env.PR_AUTHOR }}</b> created new <a href="${{ env.PR_URL }}">PR#${{ env.PR_NUMBER }}</a> '${{ env.PR_NAME }}' to branch '${{ env.PR_BASE }}'
         PR_UPDATE: |
-          ${{ env.PR_AUTHOR }} updated PR#${{ env.PR_NUMBER }};
-          see here: ${{ env.PR_URL }}
-          This is <b>markdown</b> test
+         <b>${{ env.PR_AUTHOR }}</b> updated <a href="${{ env.PR_URL }}">PR#${{ env.PR_NUMBER }}</a>
         PR_MERGED: |
           ${{ env.PR_MERGED }} merged PR#${{env.PR_NUMBER }} to branch '${{ env.PR_BASE }}'
         NEW_COMMENT: |
