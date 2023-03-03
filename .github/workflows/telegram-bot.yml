@@ -35,7 +35,7 @@ jobs:
         elif [[ ! -z "${{ github.event.pull_request }}" && "${{ github.event.action }}" == "synchronize" ]]; then
           TEXT="<b>${{ env.PR_AUTHOR }}</b> updated <a href=\"${{ env.PR_URL }}\">PR#${{ env.PR_NUMBER }}</a>"
         elif [[ ! -z "${{ github.event.pull_request }}" && "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
-          TEXT=<b>${{ env.PR_MERGED }}</b> merged <a href=\"${{ env.PR_URL }}\">PR#${{ env.PR_NUMBER }}</a> to branch <b>'${{ env.PR_BASE }}'</b>
+          TEXT="<b>${{ env.PR_MERGED }}</b> merged <a href=\"${{ env.PR_URL }}\">PR#${{ env.PR_NUMBER }}</a> to branch <b>'${{ env.PR_BASE }}'</b>"
         elif [[ ! -z "${{ github.event.comment }}" ]]; then
           TEXT="<b>${{ env.COMMENT_AUTHOR }}</b> posted the following comment to issue <a href=\"${{ env.COMMENT_URL }}\">#${{ env.COMMENT_NUMBER }}</a>:\n<i>${{ env.COMMENT_BODY }}</i>"
         elif [[ ! -z "${{ github.event.workflow_run }}" && "${{ github.event.workflow_run.conclusion }}" == "success" ]]; then
