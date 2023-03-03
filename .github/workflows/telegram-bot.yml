@@ -45,7 +45,7 @@ jobs:
         fi
 
         # replace(/[\_\*\[\]\(\)\~\`\>\#\+\-\=\|\{\}\.\!]/g, '\\$&')
-        TEXT="Bla-bla-bla \# next bla-bla-bla"
+        TEXT="Bla-bla-bla # next bla-bla-bla"
         if [[ ! -z $TEXT ]]; then
           curl --get --data-urlencode "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" --data-urlencode "text=$TEXT" $URL
         fi
