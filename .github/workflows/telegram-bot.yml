@@ -7,6 +7,8 @@ on:
   workflow_run:
     workflows: [Universum check]
     types: [completed]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
     
 jobs:
   make-comment:
