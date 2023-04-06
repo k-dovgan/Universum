@@ -16,7 +16,7 @@ jobs:
       run: pip install universum[test]
 
     - name: Test script
-    - uses: actions/github-script@v5
+      uses: actions/github-script@v5
       with:
         script: |
           github.rest.issues.createComment({
