@@ -21,7 +21,7 @@ jobs:
         script: |
           github.rest.issues.createComment({
             issue_number: '21',
-            owner: 'k.dovgan',
+            owner: 'k-dovgan',
             repo: 'Universum',
             body: '👋 Thanks for reporting!'
           })
