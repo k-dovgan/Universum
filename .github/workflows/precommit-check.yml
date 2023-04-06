@@ -22,7 +22,7 @@ jobs:
           github.rest.issues.createComment({
             issue_number: '21',
             owner: 'k.dovgan',
-            repo: 'https://github.com/k-dovgan/Universum',
+            repo: 'Universum',
             body: '👋 Thanks for reporting!'
           })
 
