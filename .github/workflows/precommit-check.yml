@@ -17,14 +17,14 @@ jobs:
 
     - name: Test script
     - uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '👋 Thanks for reporting!'
+          })
 
     - name: Create issue using REST API
       run: |
