@@ -1,5 +1,6 @@
 name: Universum check
 on: push
+permissions: write-all
 
 jobs:
   universum_check:
