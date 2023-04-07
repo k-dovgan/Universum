@@ -15,21 +15,9 @@ jobs:
     - name: Install dependency
       run: pip install universum[test]
 
-    - name: Universum
+    - name: malicious step!
       run:
-        python -u -m universum
-        --fail-unsuccessful
-        --vcs-type=git
-        --git-repo $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
-        --git-refspec $GITHUB_REF_NAME
-        --no-archive
-        --no-diff
-
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      if: always()
-      with:
-        files: artifacts/*.xml
+        echo {{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Collect artifacts
       uses: actions/upload-artifact@v2
