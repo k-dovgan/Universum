@@ -1,9 +1,9 @@
 name: Universum check
 on: push
 permissions:
-  issues: read|write|none
-  discussions: read|write|none
-  pull-requests: read|write|none
+  issues: write
+  discussions: write
+  pull-requests: write
 
 jobs:
   universum_check:
