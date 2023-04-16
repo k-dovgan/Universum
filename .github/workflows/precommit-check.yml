@@ -30,13 +30,16 @@ jobs:
           https://api.github.com/repos/k-dovgan/Universum/issues/21/comments \
           -d '{"body":"Me too"}'
 
+    - name: File
+      run:
+        cat ${{ env.GITHUB_EVENT_PATH }}
+
     - name: Universum
       run:
         python -u -m universum
         --fail-unsuccessful
-        --vcs-type=git
-        --git-repo $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
-        --git-refspec $GITHUB_REF_NAME
+        --vcs-type=ghactions
+        --ghactions-payload=file
         --no-archive
         --no-diff
 
