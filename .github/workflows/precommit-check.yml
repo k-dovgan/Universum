@@ -32,8 +32,8 @@ jobs:
           -d '{"body":"This should be in file",
                "commit_id":"${{ github.event.pull_request.head.sha }}",
                "path":".github/workflows/precommit-check.yml",
-               "start_line":2,"start_side":"RIGHT","line":3,"side":"RIGHT"}'
-          -d '{"body":"This should also be in file",
+               "start_line":2,"start_side":"RIGHT","line":3,"side":"RIGHT"},
+              {"body":"This should also be in file",
                "commit_id":"${{ github.event.pull_request.head.sha }}",
                "path":".github/workflows/precommit-check.yml",
                "line":4,"side":"RIGHT"}'
