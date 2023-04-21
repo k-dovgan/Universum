@@ -18,8 +18,9 @@ jobs:
     - name: Install updated Universum
       run: |
         git clone https://github.com/k-dovgan/Universum.git
-        pip install -U ./Universum
-
+        cd Universum
+        git checkout vt-ga
+        pip install -U .
     - name: Universum
       run:
         python -u -m universum
