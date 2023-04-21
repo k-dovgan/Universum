@@ -31,8 +31,8 @@ jobs:
           https://api.github.com/repos/k-dovgan/Universum/issues/21/comments \
           -d '{"body":"Great stuff!",
                "commit_id":"${{ github.event.pull_request.head.sha }}",
-               "path":"Universum/.github/workflows/precommit-check.yml",
-               "start_line":3,"start_side":"RIGHT"}'
+               "path":".github/workflows/precommit-check.yml",
+               "position":3}'
 
     - name: Universum
       run:
