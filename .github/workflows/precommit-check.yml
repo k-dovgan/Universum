@@ -25,14 +25,14 @@ jobs:
     - name: Create comment using REST API
       run: |
         curl -L \
-          -X PATCH \
+          -X POST \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
           https://api.github.com/repos/k-dovgan/Universum/issues/21/comments \
-          -d '{"message":"Great stuff!",
+          -d '{"body":"Great stuff!",
                "commit_id":"${{ github.event.pull_request.head.sha }}",
-               "path":".github/workflows/precommit-check.yml",
-               "line":3}'
+               "path":"Universum/.github/workflows/precommit-check.yml",
+               "start_line":3,"start_side":"RIGHT"}'
 
     - name: Universum
       run:
