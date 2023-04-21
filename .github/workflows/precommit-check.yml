@@ -17,7 +17,7 @@ jobs:
 
     - name: Universum
       run:
-        python -u -m universum
+        python -u -m Universum.universum
         --fail-unsuccessful
         --vcs-type="ghactions"
         --ghactions-payload="@${{ github.event_path }}"
