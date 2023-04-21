@@ -29,7 +29,11 @@ jobs:
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
           https://api.github.com/repos/k-dovgan/Universum/issues/21/comments \
-          -d '{"body":"Great stuff!","commit_id":"${{ github.sha }}","path":".github/workflows/precommit-check.yml","start_line":1,"start_side":"RIGHT","line":2,"side":"RIGHT"}'
+          -d '{"body":"Great stuff!",
+               "commit_id":"${{ github.event.pull_request.head.sha }}",
+               "path":".github/workflows/precommit-check.yml",
+               "start_line":1,"start_side":"RIGHT",
+               "line":2,"side":"RIGHT"}'
 
     - name: Universum
       run:
