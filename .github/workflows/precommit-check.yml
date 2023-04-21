@@ -32,8 +32,8 @@ jobs:
           -d '{"body":"Great stuff!",
                "commit_id":"${{ github.event.pull_request.head.sha }}",
                "path":".github/workflows/precommit-check.yml",
-               "start_line":1,"start_side":"RIGHT",
-               "line":2,"side":"RIGHT"}'
+               "start_line":1,
+               "line":2}'
 
     - name: Universum
       run:
