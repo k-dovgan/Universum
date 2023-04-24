@@ -15,13 +15,19 @@ jobs:
     - name: Install dependency
       run: pip install universum[test]
 
+    - name: Install updated Universum
+      run: |
+        git clone https://github.com/k-dovgan/Universum.git
+        cd Universum
+        git checkout vt-ga
+        pip install -U .
     - name: Universum
       run:
         python -u -m universum
         --fail-unsuccessful
-        --vcs-type=git
-        --git-repo $GITHUB_SERVER_URL/$GITHUB_REPOSITORY
-        --git-refspec $GITHUB_REF_NAME
+        --vcs-type="ghactions"
+        --ghactions-payload="@${{ github.event_path }}"
+        --ghactions-token="${{ secrets.GITHUB_TOKEN }}"
         --no-archive
         --no-diff
 
