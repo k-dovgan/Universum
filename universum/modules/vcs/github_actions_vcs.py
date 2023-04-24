@@ -64,7 +64,7 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
     def _clone(self, history_depth, destination_directory, clone_url):
         parsed_repo = urllib.parse.urlsplit(clone_url)
         if parsed_repo.scheme == "https" and not parsed_repo.username:
-            new_netloc = f"x-access-token:{self.settings.token}@{parsed_repo.netloc}"
+            new_netloc = f"{self.settings.token}@{parsed_repo.netloc}"
             parsed_repo = (parsed_repo.scheme, new_netloc, parsed_repo.path, parsed_repo.query, parsed_repo.fragment)
         clone_url = urllib.parse.urlunsplit(parsed_repo)
         super()._clone(history_depth, destination_directory, clone_url)
