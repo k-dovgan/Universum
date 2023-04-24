@@ -36,7 +36,7 @@ jobs:
         --vcs-type="ghactions"
         --ghactions-payload="@${{ github.event_path }}"
         --ghactions-token="${{ secrets.GITHUB_TOKEN }}"
-        --report-to-reveiw
+        --report-to-review
         --no-archive
         --no-diff
 
