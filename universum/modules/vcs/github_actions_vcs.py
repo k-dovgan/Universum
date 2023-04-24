@@ -19,11 +19,11 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
 
     @staticmethod
     def define_arguments(argument_parser):
-        parser = argument_parser.get_or_create_group("GitHub", "GitHub repository settings")
+        parser = argument_parser.get_or_create_group("GitHub Actions", "GitHub repository settings for GH Actions")
 
-        parser.add_argument("--github-token", "-ght", dest="token", metavar="GITHUB_TOKEN",
+        parser.add_argument("--ghactions-token", "-ght", dest="token", metavar="GITHUB_TOKEN",
                             help="Is stored in ${{ secrets.GITHUB_TOKEN }}")
-        parser.add_argument("--github-payload", "-ghp", dest="payload", metavar="GITHUB_PAYLOAD",
+        parser.add_argument("--ghactions-payload", "-ghp", dest="payload", metavar="GITHUB_PAYLOAD",
                             help="File path: ${{ github.event_path }}")
 
     def __init__(self, *args, **kwargs):
