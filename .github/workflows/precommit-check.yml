@@ -23,7 +23,7 @@ jobs:
 
     - name: Install updated Universum
       run: |
-        apt install git
+        sudo apt install -y git
         git clone https://github.com/k-dovgan/Universum.git
         cd Universum
         git checkout vt-ga
