@@ -22,7 +22,7 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
         parser = argument_parser.get_or_create_group("GitHub Actions", "GitHub repository settings for GH Actions")
 
         parser.add_argument("--ghactions-token", "-ght", dest="token", metavar="GITHUB_TOKEN",
-                        help="Is stored in ${{ secrets.GITHUB_TOKEN }}")
+                            help="Is stored in ${{ secrets.GITHUB_TOKEN }}")
         parser.add_argument("--ghactions-payload", "-ghp", dest="payload", metavar="GITHUB_PAYLOAD",
                             help="File path: ${{ github.event_path }}")
 
@@ -114,3 +114,6 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
         if not report_text:
             report_text = "Universum check finished"
         self._report(self.payload_json['pull_request']['comments_url'], {"body": report_text})
+
+
+
