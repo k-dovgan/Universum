@@ -105,7 +105,7 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
                                    body=issue['message'],
                                    line=issue['line'],
                                    side="RIGHT")
-                    self._report(self.payload_json['pull_request']['review_comment_url'], request)
+                    self._report(self.payload_json['pull_request']['review_comments_url'], request)
 
     def report_start(self, report_text):
         pass
@@ -114,3 +114,5 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
         if not report_text:
             report_text = "Universum check finished"
         self._report(self.payload_json['pull_request']['comments_url'], {"body": report_text})
+
+
