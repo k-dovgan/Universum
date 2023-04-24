@@ -43,3 +43,10 @@ jobs:
       with:
         name: artifacts
         path: artifacts
+
+  info:
+    name: print payload
+    runs-on: ubuntu-latest
+    steps:
+    - name: Payload
+      uses: hmarr/debug-action@v2
