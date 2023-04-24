@@ -5,6 +5,7 @@ from . import git_vcs
 from ..reporter import ReportObserver, Reporter
 from ...lib import utils
 from ...lib.gravity import Dependency
+from ...lib.ci_exception import CiException
 
 __all__ = [
     "GithubActionsMainVcs"
@@ -105,7 +106,11 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
                                    body=issue['message'],
                                    line=issue['line'],
                                    side="RIGHT")
-                    self._report(self.payload_json['pull_request']['review_comments_url'], request)
+                    try:
+                        self._report(self.payload_json['pull_request']['review_comments_url'], request)
+                    except CiException:
+                        self.out.log(f"request is {request}")
+
 
     def report_start(self, report_text):
         pass
