@@ -55,7 +55,7 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
 
         try:
             self.payload_json = json.loads(self.payload)
-            self.settings.repo = self.payload_json['repository']['url']
+            self.settings.repo = self.payload_json['repository']['html_url']
             self.settings.refspec = self.payload_json['pull_request']['head']['ref']
         except json.decoder.JSONDecodeError as error:
             self.error(f"Provided payload value could not been parsed as JSON "
