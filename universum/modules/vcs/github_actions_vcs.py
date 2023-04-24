@@ -102,6 +102,7 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
             if path in commit_files:
                 for issue in issues:
                     request = dict(path=path,
+                                   commit_id=self.payload_json['pull_request']['head']['sha'],
                                    body=issue['message'],
                                    line=issue['line'],
                                    side="RIGHT")
