@@ -31,6 +31,15 @@ jobs:
         git checkout vt-ga
         pip install -U .
 
+    - name: Create comment using REST API
+      run: |
+        curl -L \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ env.TOKEN }}"\
+          https://api.github.com/repos/k-dovgan/Universum/pulls/21/comments \
+          -d '{"body":"This should be in file", "path":".github/workflows/precommit-check.yml", "line":2, "side":"RIGHT"}'
+
     - name: Universum
       run:
         python -u -m universum
@@ -53,15 +62,6 @@ jobs:
       with:
         name: artifacts
         path: artifacts
-
-    - name: Create comment using REST API
-      run: |
-        curl -L \
-          -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ env.TOKEN }}"\
-          https://api.github.com/repos/k-dovgan/Universum/pulls/21/comments \
-          -d '{"body":"This should be in file", "line":2, "side":"RIGHT"}'
 
   info:
     name: print payload
