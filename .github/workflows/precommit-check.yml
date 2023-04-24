@@ -11,6 +11,8 @@ jobs:
   universum_check:
     name: Universum check
     runs-on: ubuntu-latest
+    env:
+      TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Setup python 3.8
@@ -28,15 +30,6 @@ jobs:
         cd Universum
         git checkout vt-ga
         pip install -U .
-
-    - name: Create comment using REST API
-      run: |
-        curl -L \
-          -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
-          https://api.github.com/repos/k-dovgan/Universum/pulls/21/comments \
-          -d '{"body":"This should be in file"}'
 
     - name: Universum
       run:
@@ -60,6 +53,15 @@ jobs:
       with:
         name: artifacts
         path: artifacts
+
+    - name: Create comment using REST API
+      run: |
+        curl -L \
+          -X POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ env.TOKEN }}"\
+          https://api.github.com/repos/k-dovgan/Universum/pulls/21/comments \
+          -d '{"body":"This should be in file", "line":2, "side":"RIGHT"}'
 
   info:
     name: print payload
