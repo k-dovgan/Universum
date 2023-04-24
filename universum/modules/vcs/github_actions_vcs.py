@@ -55,12 +55,11 @@ class GithubActionsMainVcs(ReportObserver, git_vcs.GitMainVcs):
 
         try:
             self.payload_json = json.loads(self.payload)
+            self.settings.repo = self.payload_json['repository']['url']
+            self.settings.refspec = self.payload_json['pull_request']['head']['ref']
         except json.decoder.JSONDecodeError as error:
             self.error(f"Provided payload value could not been parsed as JSON "
                        f"and returned the following error:\n {error}")
-
-        self.settings.repo = self.payload_json['repository']['url']
-        self.settings.refspec = self.payload_json['pull_request']['head']['ref']
 
     def _clone(self, history_depth, destination_directory, clone_url):
         parsed_repo = urllib.parse.urlsplit(clone_url)
