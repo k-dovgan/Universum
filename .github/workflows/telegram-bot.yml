@@ -9,6 +9,8 @@ on:
     types: [completed]
   pull_request_review:
     types: [submitted, edited, dismissed]
+  pull_request_review_comment:
+    types: [created]
 
 jobs:
   make-comment:
