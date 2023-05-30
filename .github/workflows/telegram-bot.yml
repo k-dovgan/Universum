@@ -25,7 +25,6 @@ jobs:
       PR_MERGED: ${{ github.event.pull_request.merged_by.login }}
       REVIEW_STATE: ${{ github.event.review.state }}
       REVIEW_AUTHOR: ${{ github.event.review.user.login }}
-      REVIEW_COMMENT: ${{ github.event.review.body }}
       COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
       COMMENT_URL: ${{ github.event.comment.html_url }}
       COMMENT_BODY: ${{ github.event.comment.body }}
